@@ -1,7 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
+export const user = {
+  email: '',
+  password: '',
+  loggedIn: false,
+};
 
 export const userData = {
   firstName: 'Maximilian',
@@ -30,28 +33,29 @@ export function CourseGoal({title, description}) {
     </div>
   );
 }
+export function UserLogin({email, password}) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    user.email = email;
+    user.password = password;
+    user.loggedIn = true;
+
+    console.log(user);
+  }
+
+  return <button type='submit' onClick={(e) => handleSubmit(e)}>Add</button>
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-
+   
   return (
     <>
-      <div>
-        <CourseGoal title='Learn React' description='In depth' />
-        <CourseGoal title='Practice' description='Practice working with React, components etc' />
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <form className='input'>
+        <input type='text'/>
+        <input type='password'/>
+        <UserLogin email='lji@gmail.com' password='12345@!#!gsda'/>
+      </form>
     </>
   )
 }

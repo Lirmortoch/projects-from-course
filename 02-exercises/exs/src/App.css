@@ -41,3 +41,8 @@
   color: #888;
 }
 
+.input {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 5px;
+}
