@@ -30,28 +30,22 @@ export function CourseGoal({title, description}) {
     </div>
   );
 }
+export function Card({children, name, lastName, description}) {
+  return (
+    <section className={name+' '+lastName+' people'}>
+      <h2>{name} {lastName}</h2>
+      <p>{name} {description}</p>
+      <a href='mailto:#'>Email {name}</a>
+    </section>
+  );
+}
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
-        <CourseGoal title='Learn React' description='In depth' />
-        <CourseGoal title='Practice' description='Practice working with React, components etc' />
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Card name='Maria' lastName='Brown' description=' Maria is a professor of Computer Science at the University of Illinois.'/>
     </>
   )
 }
