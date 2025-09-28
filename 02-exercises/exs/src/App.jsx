@@ -1,4 +1,5 @@
 import './App.css'
+import React from 'react';
 
 export const user = {
   name: '',
@@ -39,15 +40,29 @@ export function UserLogin({name}) {
 
   return <button type='submit' onClick={(e) => handleSubmit(e)}>Set name</button>
 }
+export function Price() {
+  const [price, setPrice] = React.useState(100);
+  const handlePrice = () => {
+    if (price === 0) {
+      setPrice(0)
+      return;
+    }
+
+    setPrice(price-25);
+  }
+
+  return (
+    <div>
+      <button onClick={handlePrice}>Change price</button>
+      <p>Price: {price}$</p>
+    </div>
+  )
+}
 
 function App() {
-   
   return (
     <>
-      <form className='input'>
-        <input type='text'/>
-        <UserLogin name='Max' />
-      </form>
+      <Price />
     </>
   )
 }
