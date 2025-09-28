@@ -9,6 +9,11 @@ export const userData = {
   lastName: 'Schwarzmüller',
   title: 'Instructor',
 };
+export const DUMMY_TODOS = [
+  'Learn React',
+  'Practice React',
+  'Profit!'
+];
 
 export function MainGoal() {
   return (
@@ -86,11 +91,29 @@ export function ShowAlert() {
     </>
   );
 }
+export function ToggleStyle() {
+  const [style, setStyle] = useState('');
+
+  const handlerToggleStyle = () => {
+    if (style === '') setStyle('active');
+    else setStyle('');
+  }
+
+  return (
+    <div>
+      <p className={style}>Style me!</p>
+      <button onClick={handlerToggleStyle}>Toggle Style</button>
+    </div>
+  )
+}
+export function ShowListDynamically() {
+  
+}
 
 function App() {
   return (
     <>
-     <ShowAlert />
+      
     </>
   )
 }
