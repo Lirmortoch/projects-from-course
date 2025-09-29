@@ -107,13 +107,17 @@ export function ToggleStyle() {
   )
 }
 export function ShowListDynamically() {
-  
+  return (
+    <ul>
+      {DUMMY_TODOS.map((item, idx) => <li key={idx}>{item}</li>)}
+    </ul>
+  )
 }
 
 function App() {
   return (
     <>
-      
+      <ShowListDynamically/>
     </>
   )
 }
