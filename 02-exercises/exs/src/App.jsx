@@ -113,11 +113,20 @@ export function ShowListDynamically() {
     </ul>
   )
 }
+export function Summary({text}) {
+  const textF = `<p>${text}</p>`;
+  return (
+    <>
+      <h1>Summary</h1>
+      <p>{textF}</p>
+    </>
+  )
+}
 
 function App() {
   return (
     <>
-      <ShowListDynamically/>
+      
     </>
   )
 }
