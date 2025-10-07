@@ -1,18 +1,15 @@
 import './App.css'
 import { useState } from 'react';
 
-import './App.css'
-import { useState } from 'react';
-
-export const user = {
+const user = {
   name: '',
 };
-export const userData = {
+const userData = {
   firstName: 'Maximilian',
   lastName: 'Schwarzmüller',
   title: 'Instructor',
 };
-export const DUMMY_TODOS = [
+const DUMMY_TODOS = [
   'Learn React',
   'Practice React',
   'Profit!'
@@ -137,13 +134,17 @@ export function Input({ richText, placeHolder, inputType}) {
     <>{input}</>
   );
 }
+export function ButtonModuleFour({ children, mode='filled', }) {
+  return (
+    <button className={mode+'-button'}>{children}</button>
+  )
+}
 
 function App() {
   return (
     <>
-      <Input richText={true} placeHolder='Enter Name' />
-      <Input inputType='text' placeHolder='Enter Name' />
-    </>
+      <ButtonModuleFour mode='outline'>Outline</ButtonModuleFour>
+    </> 
   )
 }
 
