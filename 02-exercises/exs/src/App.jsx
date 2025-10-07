@@ -1,6 +1,9 @@
 import './App.css'
 import { useState } from 'react';
 
+import './App.css'
+import { useState } from 'react';
+
 export const user = {
   name: '',
 };
@@ -113,11 +116,33 @@ export function ShowListDynamically() {
     </ul>
   )
 }
+export function Summary({text}) {
+  const textF = `<p>${text}</p>`;
+  return (
+    <>
+      <h1>Summary</h1>
+      <p>{textF}</p>
+    </>
+  )
+}
+export function Input({ richText, placeHolder, inputType}) {
+  let input = (<input type={inputType} placeholder={placeHolder} />);
+
+  if (richText) {
+    input = (<textarea placeholder={placeHolder} cols={20}
+    rows={2}></textarea>);
+  }
+  console.log(input)
+  return (
+    <>{input}</>
+  );
+}
 
 function App() {
   return (
     <>
-      <ShowListDynamically/>
+      <Input richText={true} placeHolder='Enter Name' />
+      <Input inputType='text' placeHolder='Enter Name' />
     </>
   )
 }
