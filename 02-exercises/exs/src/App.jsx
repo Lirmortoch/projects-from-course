@@ -122,11 +122,24 @@ export function Summary({text}) {
     </>
   )
 }
+export function Input({ richText, placeHolder, inputType}) {
+  let input = (<input type={inputType} placeholder={placeHolder} />);
+
+  if (richText) {
+    input = (<textarea placeholder={placeHolder} cols={20}
+    rows={2}></textarea>);
+  }
+  console.log(input)
+  return (
+    <>{input}</>
+  );
+}
 
 function App() {
   return (
     <>
-      
+      <Input richText={true} placeHolder='Enter Name' />
+      <Input inputType='text' placeHolder='Enter Name' />
     </>
   )
 }
