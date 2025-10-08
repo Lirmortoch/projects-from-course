@@ -1,5 +1,6 @@
 import './App.css'
 import { useState } from 'react';
+import ReactIcon from './assets/react.svg'
 
 const user = {
   name: '',
@@ -134,16 +135,33 @@ export function Input({ richText, placeHolder, inputType}) {
     <>{input}</>
   );
 }
-export function ButtonModuleFour({ children, mode='filled', }) {
+export function ButtonModuleFour({ children, mode = 'filled', Icon = null, ...props }) {
+  let iconElem = Icon;
+  let buttonCssClasses = `button ${mode}-button`;
+
+  if (Icon !== null) {
+    iconElem = (<span className='button-icon'>
+      <img src={iconElem}/>
+    </span>);
+    buttonCssClasses += ' icon-button';
+  }
+
+  if (props.className) {
+    buttonCssClasses += ` ${props.className}`;
+  }
+
   return (
-    <button className={mode+'-button'}>{children}</button>
+    <button {...props} className={buttonCssClasses}>
+      {iconElem}
+      <span>{children}</span>
+    </button>
   )
 }
 
 function App() {
   return (
     <>
-      <ButtonModuleFour mode='outline'>Outline</ButtonModuleFour>
+      <ButtonModuleFour mode='text' type='submit' Icon={ReactIcon}>Outline</ButtonModuleFour>
     </> 
   )
 }
