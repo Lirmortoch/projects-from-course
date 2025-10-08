@@ -135,7 +135,7 @@ export function Input({ richText, placeHolder, inputType}) {
     <>{input}</>
   );
 }
-export function ButtonModuleFour({ children, mode = 'filled', Icon = null, ...props }) {
+export function Button({ children, mode = 'filled', Icon = null, ...props }) {
   let iconElem = Icon;
   let buttonCssClasses = `button ${mode}-button`;
 
@@ -161,7 +161,7 @@ export function ButtonModuleFour({ children, mode = 'filled', Icon = null, ...pr
 function App() {
   return (
     <>
-      <ButtonModuleFour mode='text' type='submit' Icon={ReactIcon}>Outline</ButtonModuleFour>
+      
     </> 
   )
 }
