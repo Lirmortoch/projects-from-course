@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react';
+import { use, useState } from 'react';
 import ReactIcon from './assets/react.svg'
 
 const user = {
@@ -158,11 +158,54 @@ export function Button({ children, mode = 'filled', Icon = null, ...props }) {
   )
 }
 
+// module 4 exercise 24
+export function Review({ feedback, name }) {
+  return (
+    <div id='draft'>
+      <h2>Your feedback</h2>
+      <blockquote>
+        <p>{feedback}</p>
+      </blockquote>
+      <figcaption>{name}</figcaption>
+      <button>Save</button>
+    </div>
+  )
+}
+export function ReviewInput() {
+  const [feedback, setFeedback] = useState('');
+  const [name, setName] = useState('');
+
+  function handleFeedback(e) {
+    setFeedback(e.target.value);
+  }
+  function handleName(e) {
+    setName(e.target.value);
+  }
+
+  return (
+    <div>
+      <div id='feedback'>
+        <h2>Please share some feedback</h2>
+        <form onClick={(e) => e.preventDefault()}>
+          <fieldset>
+            <label htmlFor='input-feedback'>Your Feedback</label>
+            <textarea name='input-feedback' id='input-feedback' onChange={handleFeedback} ></textarea>
+          </fieldset>
+          <fieldset>
+            <label htmlFor='input-name'>Your Name</label>
+            <input type='text' name='input-name' id='input-name' onChange={handleName} />
+          </fieldset>
+        </form>
+      </div>
+
+      <Review feedback={feedback} name={name} />
+    </div>
+  )
+}
+
 function App() {
   return (
-    <>
-      
-    </> 
+    <ReviewInput />
   )
 }
 

@@ -9,81 +9,89 @@ body {
   font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(#f3f0f8, #d6d2db);
+  background: linear-gradient(#180d27, #0c0219);
   color: #e5d9f1;
   min-height: 100vh;
 }
 
-section {
-  margin: 1rem auto;
+#feedback {
   max-width: 30rem;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #669ae7;
+  color: #041023;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
 }
 
-h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0;
-  color: #030a1b;
+#feedback h2 {
+  margin: 0.5rem 0;
 }
 
-.button {
-  display: inline-block;
-  margin: 0.5rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  background: transparent;
-  font-family: 'Lato', sans-serif;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 2px;
+#feedback label {
+  display: block;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #364660;
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
 }
 
-.icon-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.button-icon {
-  width: 1rem;
-  height: 1rem;
-}
-
-.button-icon > * {
+#feedback input,
+#feedback textarea {
+  font: inherit;
+  display: block;
+  margin: 0 0 1rem 0;
+  padding: 0.5rem;
   width: 100%;
-  height: 100%;
+  border-radius: 4px;
+  border: 1px solid #798aa9;
+  background-color: #b4c4e6;
+  color: #041023;
 }
 
-.filled-button {
-  background: linear-gradient(#7fa1f7, #6085e4);
-  color: #030a1b;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+#draft {
+  font-family: 'Lato', sans-serif;
+  max-width: 30rem;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #67d7b0;
+  color: #0b3929;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 
-.filled-button:hover {
-  background: linear-gradient(#89a9fb, #6890f6);
+#draft figure {
+  margin: 0;
+  padding: 0;
 }
 
-.filled-button:disabled {
-  background: #a3a9b7;
-  color: #3a445c;
-  box-shadow: none;
-  cursor: not-allowed;
+#draft blockquote {
+  margin: 0 2rem;
+  padding: 0.5rem 1rem;
+  background-color: #65b69a;
+  border-radius: 4px;
+  color: #042217;
+  font-style: italic;
 }
 
-.outline-button {
-  border: 1px solid #2658d6;
-  color: #2658d6;
+#draft blockquote h2 {
+  margin: 0;
 }
 
-.outline-button:hover {
-  background: #cbd8fc;
+#draft figcaption {
+  margin: 0.2rem 0;
+  font-size: 0.75rem;
 }
 
-.text-button {
-  color: #2658d6;
-}
-
-.text-button:hover {
-  background: #cbd8fc;
+#draft button {
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background-color: #0b3929;
+  color: #ecf8f4;
+  font-size: 1rem;
+  cursor: pointer;
 }
