@@ -1,15 +1,16 @@
 import './App.css'
-import { useState } from 'react';
+import { use, useState } from 'react';
+import ReactIcon from './assets/react.svg'
 
-export const user = {
+const user = {
   name: '',
 };
-export const userData = {
+const userData = {
   firstName: 'Maximilian',
   lastName: 'Schwarzmüller',
   title: 'Instructor',
 };
-export const DUMMY_TODOS = [
+const DUMMY_TODOS = [
   'Learn React',
   'Practice React',
   'Profit!'
@@ -122,12 +123,89 @@ export function Summary({text}) {
     </>
   )
 }
+export function Input({ richText, placeHolder, inputType}) {
+  let input = (<input type={inputType} placeholder={placeHolder} />);
+
+  if (richText) {
+    input = (<textarea placeholder={placeHolder} cols={20}
+    rows={2}></textarea>);
+  }
+  console.log(input)
+  return (
+    <>{input}</>
+  );
+}
+export function Button({ children, mode = 'filled', Icon = null, ...props }) {
+  let iconElem = Icon;
+  let buttonCssClasses = `button ${mode}-button`;
+
+  if (Icon !== null) {
+    iconElem = (<span className='button-icon'>
+      <img src={iconElem}/>
+    </span>);
+    buttonCssClasses += ' icon-button';
+  }
+
+  if (props.className) {
+    buttonCssClasses += ` ${props.className}`;
+  }
+
+  return (
+    <button {...props} className={buttonCssClasses}>
+      {iconElem}
+      <span>{children}</span>
+    </button>
+  )
+}
+
+// module 4 exercise 24
+export function Review({ feedback, name }) {
+  return (
+    <div id='draft'>
+      <h2>Your feedback</h2>
+      <blockquote>
+        <p>{feedback}</p>
+      </blockquote>
+      <figcaption>{name}</figcaption>
+      <button>Save</button>
+    </div>
+  )
+}
+export function ReviewInput() {
+  const [feedback, setFeedback] = useState('');
+  const [name, setName] = useState('');
+
+  function handleFeedback(e) {
+    setFeedback(e.target.value);
+  }
+  function handleName(e) {
+    setName(e.target.value);
+  }
+
+  return (
+    <div>
+      <div id='feedback'>
+        <h2>Please share some feedback</h2>
+        <form onClick={(e) => e.preventDefault()}>
+          <fieldset>
+            <label htmlFor='input-feedback'>Your Feedback</label>
+            <textarea name='input-feedback' id='input-feedback' onChange={handleFeedback} ></textarea>
+          </fieldset>
+          <fieldset>
+            <label htmlFor='input-name'>Your Name</label>
+            <input type='text' name='input-name' id='input-name' onChange={handleName} />
+          </fieldset>
+        </form>
+      </div>
+
+      <Review feedback={feedback} name={name} />
+    </div>
+  )
+}
 
 function App() {
   return (
-    <>
-      
-    </>
+    <ReviewInput />
   )
 }
 
