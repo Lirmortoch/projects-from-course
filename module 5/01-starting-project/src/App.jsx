@@ -6,44 +6,35 @@ import Result from "./components/Result";
 import { calculateInvestmentResults, formatter } from "./util/investment";
 
 function App() {
-  const [iniInvest, setIniInvest] = useState(0);
-  const [annInvest, setAnnInvest] = useState(0);
-  const [expectedReturn, setExpectedReturn] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [userInput, setUserInput] = useState({
+    initialInvestment: 10000,
+    annualInvestment: 300,
+    expectedReturn: 5.5,
+    duration: 12,
+  });
 
-  function handleIniInvestChange(e) {
-    setIniInvest(e.target.value);
+  function handleSetUserInput(inputFieldName, newValue) {
+    setUserInput((prevInput) => {
+      return {
+        ...prevInput,
+        [inputFieldName]: Number(newValue)
+      }
+    });
   }
-  function handleAnnInvestChange(e) {
-    setAnnInvest(e.target.value);
-  }
-  function handleExpectedReturnChange(e) {
-    setExpectedReturn(e.target.value);
-  }
-  function handleDurationChange(e) {
-    setDuration(e.target.value);
-  }
-  
-  const propObject = {
-    initialInvestment: Number(iniInvest),
-    annualInvestment: Number(annInvest),
-    expectedReturn: Number(expectedReturn),
-    duration: Number(duration),
-  }
-  const results = calculateInvestmentResults(propObject);
+
+  const results = calculateInvestmentResults(userInput);
+  const inputIsValid = userInput.duration > 0;
 
   return (
     <>
       <Header />
       <main className="main">
         <UserInput 
-          handleIniInvestChange={handleIniInvestChange}  
-          handleAnnInvestChange={handleAnnInvestChange}
-          handleExpectedReturnChange={handleExpectedReturnChange}
-          handleDurationChange={handleDurationChange}
+          handleSetUserInput={handleSetUserInput}
         />
         
-        <Result results={results} formatter={formatter} />
+        { !inputIsValid && <p className="center">Enter valid duration, please!</p> }
+        { inputIsValid && <Result results={results} formatter={formatter} /> }
       </main>
     </>
   )
