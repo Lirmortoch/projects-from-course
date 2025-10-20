@@ -1,5 +1,5 @@
 import './App.css'
-import { use, useState } from 'react';
+import { useState } from 'react';
 import ReactIcon from './assets/react.svg'
 
 const user = {
@@ -202,10 +202,30 @@ export function ReviewInput() {
     </div>
   )
 }
+export function DynamicStyling() {
+  const [myColor, setMyColor] = useState('white');
+  function handleYesBtn() {
+    setMyColor('green');
+  }
+  function handleNoBtn() {
+    setMyColor('red');
+  }
+  return (
+    <div>
+      <h1 style={{
+        color: myColor,
+      }}>Header!!!</h1>
+      <div>
+        <button onClick={handleYesBtn}>Yes</button>
+        <button onClick={handleNoBtn}>No</button>
+      </div>
+    </div>
+  )
+}
 
 function App() {
   return (
-    <ReviewInput />
+    
   )
 }
 
