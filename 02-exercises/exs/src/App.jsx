@@ -222,11 +222,31 @@ export function DynamicStyling() {
     </div>
   )
 }
+export function DynamicStylingHighlight() {
+  const [color, setColor] = useState('');
+  
+  function handleYes() {
+    setColor('highlight-green');
+  }
+  function handleNo() {
+    setColor('highlight-red');
+  }
+
+  return (
+    <div>
+      <h1 className={color}>CSS is great</h1>
+      <div>
+        <button onClick={handleYes}>Yes</button>
+        <button onClick={handleNo}>No</button>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
-    
-  )
+    <DynamicStylingHighlight />
+  );
 }
 
 export default App
