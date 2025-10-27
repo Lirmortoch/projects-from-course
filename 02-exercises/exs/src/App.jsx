@@ -202,6 +202,7 @@ export function ReviewInput() {
     </div>
   )
 }
+
 export function DynamicStyling() {
   const [myColor, setMyColor] = useState('white');
   function handleYesBtn() {
@@ -259,10 +260,31 @@ export function DynamicStylingThird() {
   )
 }
 
+export function Debug({ arr }) {
+  return (
+    <ul>
+      {arr.map(item => <li key={item.id}>{item.name}</li>)}
+    </ul>
+  );
+}
 
 function App() {
+  const arr = [
+    {
+      name: 'bob',
+      id: 1,
+    },
+    {
+      name: 'john',
+      id: 2,
+    },
+    {
+      name: 'aks',
+      id: 3,
+    }
+  ];
   return (
-    <DynamicStylingThird />
+    <Debug arr={arr} />
   );
 }
 
