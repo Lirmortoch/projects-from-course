@@ -242,10 +242,27 @@ export function DynamicStylingHighlight() {
     </div>
   );
 }
+export function DynamicStylingThird() {
+  const [myColor, setMyColor] = useState('white');
+  function handleToggleStyle() {
+    setMyColor((prevColor) => prevColor === 'red' ? 'white' : 'red');
+  }
+  return (
+    <div>
+      <p style={{
+        color: myColor,
+      }}>Style me!</p>
+      <div>
+        <button onClick={handleToggleStyle}>Toggle style</button>
+      </div>
+    </div>
+  )
+}
+
 
 function App() {
   return (
-    <DynamicStylingHighlight />
+    <DynamicStylingThird />
   );
 }
 
