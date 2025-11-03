@@ -1,6 +1,5 @@
 import './App.css'
-import { useState } from 'react';
-import ReactIcon from './assets/react.svg'
+import { useRef, useState } from 'react';
 
 const user = {
   name: '',
@@ -268,23 +267,89 @@ export function Debug({ arr }) {
   );
 }
 
-function App() {
-  const arr = [
-    {
-      name: 'bob',
-      id: 1,
-    },
-    {
-      name: 'john',
-      id: 2,
-    },
-    {
-      name: 'aks',
-      id: 3,
-    }
-  ];
+const workouts = [
+  {
+    title: 'Pushups',
+    description: 'Do 30 pushups',
+    time: 1000 * 60 * 3,
+  },
+  {
+    title: 'Squats',
+    description: 'Do 30 squats',
+    time: 1000 * 60 * 2,
+  },
+  {
+    title: 'Pullups',
+    description: 'Do 10 pullups',
+    time: 1000 * 60 * 3,
+  },
+];
+function Workout({ workout, setCompletedWorkouts }) {
+  const [timerStarted, setTimerStarted] = useState(false);
+  const [timerExpired, setTimerExpired] = useState(false);
+  const [timerWasStop, setTimerWasStop] = useState(false);
+
+  const refTimerId = useRef(null);
+  const refTimerWasStop = useRef(false);
+  
+  function handleStartTimer() {
+    refTimerId.current = setTimeout(() => {
+      setTimerExpired(true);
+      setCompletedWorkouts((prevWorkouts) => prevWorkouts.concat(workout));
+    }, workout.time);
+
+    setTimerStarted(true);
+  }
+  function handleStopTimer() {
+    clearTimeout(refTimerId.current);
+    setCompletedWorkouts((prevWorkouts) => prevWorkouts.concat(workout));
+    refTimerWasStop.current = true;
+    setTimerExpired(true);
+  }
+
   return (
-    <Debug arr={arr} />
+    <section>
+      {timerExpired && (
+        <dialog>
+          <p>{workout.title} was ended</p>
+        </dialog>
+      )}
+      <h2>{workout.title}</h2>
+      <p>{workout.description}</p>
+      <button 
+        onClick={timerStarted ? handleStopTimer : handleStartTimer}>
+          {timerStarted ? 'Stop Timer' : 'Start Timer'}
+      </button>
+      {timerExpired && (<p>Timer was {refTimerWasStop.current ? 'stopped' : 'ended'}</p>)}
+    </section>
+  );
+}
+export function Workouts() {
+  const [completedWorkouts, setCompletedWorkouts] = useState([]);
+  
+  return (
+    <main className='workouts'>
+      <div className="workouts__wrap">
+        {workouts.map((item, index) => {
+          return <Workout key={index+1+`-${item.title}`} workout={item} setCompletedWorkouts={setCompletedWorkouts} />
+        })}
+      </div>
+      
+      <section className='workouts__completed'>
+        <h2>Completed Workouts</h2>
+        <ul>
+          {completedWorkouts.map((item, i) => {
+            return <li key={i+1}>{item.title}</li>
+          })}
+        </ul>
+      </section>
+    </main>
+  )
+}
+
+function App() {
+  return (
+    <Workouts />
   );
 }
 
