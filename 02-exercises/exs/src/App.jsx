@@ -287,7 +287,6 @@ const workouts = [
 function Workout({ workout, setCompletedWorkouts }) {
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
-  const [timerWasStop, setTimerWasStop] = useState(false);
 
   const refTimerId = useRef(null);
   const refTimerWasStop = useRef(false);
