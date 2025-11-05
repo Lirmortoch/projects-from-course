@@ -267,6 +267,7 @@ export function Debug({ arr }) {
   );
 }
 
+// Section 8
 const workouts = [
   {
     title: 'Pushups',
@@ -346,9 +347,42 @@ export function Workouts() {
   )
 }
 
-function App() {
+export function CompleteInput({ labelText, ref, ...props }) {
   return (
-    <Workouts />
+    <fieldset>
+      <label htmlFor={props.id} >{labelText}</label>
+      <input ref={ref} {...props} />
+    </fieldset>
+  );
+}
+const exportData = {
+  email: '',
+  name: '',
+}
+
+function App() {
+  const refName = useRef();
+  const refEmail = useRef();
+
+  function handleSaveData() {
+    const name = refName.current.value;
+    const email = refEmail.current.value;
+
+    exportData.name = name;
+    exportData.email = email;
+
+    refName.current.value = '';
+    refEmail.current.value = '';
+
+    console.log(exportData);
+  }
+
+  return (
+    <div>
+      <CompleteInput labelText={'Name'} ref={refName} type='text' />
+      <CompleteInput labelText={'Email'} ref={refEmail} type='email' />
+      <button onClick={handleSaveData}>Save Data!</button>
+    </div>
   );
 }
 
