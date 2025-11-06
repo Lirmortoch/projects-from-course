@@ -1,5 +1,5 @@
 import './App.css'
-import { useRef, useState } from 'react';
+import { useRef, useState, useImperativeHandle } from 'react';
 
 const user = {
   name: '',
@@ -385,9 +385,40 @@ const exportData = {
   name: '',
 }
 
+function SomeComponent() {
+  const form = React.useRef();
+
+  function handleClear() {
+    form.current.clear();
+  }
+
+  return <Form ref={form} onReset={handleClear} />
+}
+function Form({ ref, onReset }) {
+  const form = useRef();
+
+  useImperativeHandle(ref, () => {
+    return {
+      clear() {
+        form.current.reset();
+      }
+    }
+  });
+
+  return (
+    <form ref={ref}>
+      <fieldset>
+        <label htmlFor='name'>Name </label>
+        <input type='text' id='name'/>
+      </fieldset>
+      <button onClick={onReset}>Submit</button>
+    </form>
+  );
+}
+
 function App() {
   return (
-    <CompleteInputEx />
+    
   );
 }
 
