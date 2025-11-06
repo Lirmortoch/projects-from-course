@@ -355,12 +355,7 @@ export function CompleteInput({ labelText, ref, ...props }) {
     </fieldset>
   );
 }
-const exportData = {
-  email: '',
-  name: '',
-}
-
-function App() {
+function CompleteInputEx() {
   const refName = useRef();
   const refEmail = useRef();
 
@@ -383,6 +378,16 @@ function App() {
       <CompleteInput labelText={'Email'} ref={refEmail} type='email' />
       <button onClick={handleSaveData}>Save Data!</button>
     </div>
+  );
+}
+const exportData = {
+  email: '',
+  name: '',
+}
+
+function App() {
+  return (
+    <CompleteInputEx />
   );
 }
 
