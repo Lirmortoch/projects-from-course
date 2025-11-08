@@ -386,7 +386,7 @@ const exportData = {
 }
 
 function SomeComponent() {
-  const form = React.useRef();
+  const form = useRef();
 
   function handleClear() {
     form.current.clear();
@@ -416,9 +416,13 @@ function Form({ ref, onReset }) {
   );
 }
 
+
+
+// Section 8
+
 function App() {
   return (
-    
+    <></>
   );
 }
 
