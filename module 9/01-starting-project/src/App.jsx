@@ -1,20 +1,32 @@
 import { useState, useRef } from "react";
+
 import Project from "./components/Project";
+import ProjectForm from "./components/ProjectForm";
 import Sidebar from "./components/Sidebar";
+
 import noProjectImage from './assets/no-projects.png'
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState(null);
+  const [project, setProject] = useState('default');
   
   function handleSetProjects(title, description, date) {
     const project = {
+      id: projects.length + 1,
       title: title,
       description: description,
       date: date,
     }
 
     setProjects(prevProjects => prevProjects.concat(project));
+  }
+  function handleSetProject(state, projectIdx = null) {
+    if (state === 'create') {
+      setProject('create');
+    }
+    else if (state === 'project') {
+      setProject(projectIdx);
+    }
   }
 
   const noProjectSelectedElem = (
@@ -27,16 +39,18 @@ function App() {
 
       <p>Select a project or get started with a new one</p>
 
-      <button onClick={handleSetProjects}>Create new project</button>
+      <button onClick={() => handleSetProject('create')}>Create new project</button>
     </section>
   );
 
   return (
     <>
-      <Sidebar />
+      <Sidebar projects={projects} />
       
       <main>
-      
+        {project === 'default' && noProjectSelectedElem}
+        {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} />}
+        {project === 'project' && <Project project={projects[project]} />}
       </main>
     </>
   );
