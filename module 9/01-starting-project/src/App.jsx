@@ -30,29 +30,27 @@ function App() {
   }
 
   const noProjectSelectedElem = (
-    <section>
-      <div>
+    <section className="w-[35rem] mt-16 mt-24 text-center w-2/3">
+      <div className="w-16 h-16 object-contain mx-auto">
         <img src={noProjectImage} alt="No project image" />
       </div>
 
-      <h2>No Project Selected</h2>
+      <h2 className="text-xl font-bold text-stone-700 my-4">No Project Selected</h2>
 
-      <p>Select a project or get started with a new one</p>
+      <p className="text-stone-600 mb-8">Select a project or get started with a new one</p>
 
-      <button onClick={() => handleSetProject('create')}>Create new project</button>
+      <button className="px-4 py-2 text-xs md:text-base rounded-md bg-stone-800 text-stone-400 hover:bg-stone-700 hover:text-stone-100" onClick={() => handleSetProject('create')}>Create new project</button>
     </section>
   );
 
   return (
-    <>
+    <main className="h-screen my-8 flex gap-8">
       <Sidebar projects={projects} />
       
-      <main>
-        {project === 'default' && noProjectSelectedElem}
-        {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} />}
-        {project === 'project' && <Project project={projects[project]} />}
-      </main>
-    </>
+      {project === 'default' && noProjectSelectedElem}
+      {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} />}
+      {project === 'project' && <Project project={projects[project]} />}
+    </main>
   );
 }
 
