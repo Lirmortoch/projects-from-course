@@ -8,7 +8,7 @@ import noProjectImage from './assets/no-projects.png'
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState('default');
+  const [project, setProject] = useState('create');
   
   function handleSetProjects(title, description, date) {
     const project = {
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar projects={projects} />
+      <Sidebar projects={projects} handleSetProject={handleSetProject} />
       
       {project === 'default' && noProjectSelectedElem}
       {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} />}
