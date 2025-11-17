@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import Project from "./components/Project";
 import ProjectForm from "./components/ProjectForm";
@@ -8,8 +8,8 @@ import noProjectImage from './assets/no-projects.png'
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState('create');
-  
+  const [project, setProject] = useState('default');
+
   function handleSetProjects(title, description, date) {
     const project = {
       id: projects.length + 1,
@@ -19,13 +19,15 @@ function App() {
     }
 
     setProjects(prevProjects => prevProjects.concat(project));
+
+    title, description, date = '';
   }
   function handleSetProject(state, projectIdx = null) {
-    if (state === 'create') {
-      setProject('create');
-    }
-    else if (state === 'project') {
+    if (state === 'project') {
       setProject(projectIdx);
+    }
+    else {
+      setProject(state);
     }
   }
 
@@ -44,11 +46,11 @@ function App() {
   );
 
   return (
-    <main className="h-screen my-8 flex gap-8">
+    <main className="h-screen mt-8 flex gap-8">
       <Sidebar projects={projects} handleSetProject={handleSetProject} />
       
       {project === 'default' && noProjectSelectedElem}
-      {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} />}
+      {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} handleSetProject={handleSetProject} />}
       {project === 'project' && <Project project={projects[project]} />}
     </main>
   );
