@@ -4,12 +4,13 @@ function FormGroup({ label, id, inputRef, type }) {
     const fieldsetClassName = 'flex flex-col gap-1 my-4';
     const labelClassName = 'text-sm font-bold uppercase text-stone-600';
     const inputClassName = 'w-full p-1 border-b-2 rounded-sm border-stone-300 bg-stone-200 text-stone-900 focus:outline-none focus:border-stone-600';
+    const inputPlaceholder = `Enter ${label}`;
 
     return (
         <fieldset className={fieldsetClassName}>
             <label htmlFor={id} className={labelClassName}>{label}</label>
 
-            {type === 'textarea' ? <textarea className={inputClassName + ' resize-none scrollbar-custom no-scrollbar-arrows'} ref={inputRef} id={id} name={id}></textarea> : <input type={type} id={id} name={id} className={inputClassName} ref={inputRef} /> }
+            {type === 'textarea' ? <textarea className={inputClassName + ' resize-none scrollbar-custom no-scrollbar-arrows'} ref={inputRef} id={id} name={id} placeholder={inputPlaceholder} ></textarea> : <input type={type} id={id} name={id} className={inputClassName} ref={inputRef} placeholder={inputPlaceholder} /> }
         </fieldset>
     )
 }
@@ -20,7 +21,7 @@ export default function ProjectForm({ handleSetProjects, handleSetProject }) {
     const refProjectDate = useRef();
 
     function onSave() {
-        handleSetProjects(refProjectTitle.current.value, refProjectDescription.current.value, refProjectDate.current.value)
+        handleSetProjects(refProjectTitle.current.value, refProjectDescription.current.value, refProjectDate.current.value);
 
         handleSetProject('default');
     }

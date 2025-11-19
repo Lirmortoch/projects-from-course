@@ -11,14 +11,14 @@ function App() {
   const [project, setProject] = useState('default');
 
   function handleSetProjects(title, description, date) {
-    const project = {
+    const newProject = {
       id: projects.length + 1,
       title: title,
       description: description,
       date: date,
     }
 
-    setProjects(prevProjects => prevProjects.concat(project));
+    setProjects(prevProjects => prevProjects.concat(newProject));
 
     title, description, date = '';
   }
@@ -29,6 +29,9 @@ function App() {
     else {
       setProject(state);
     }
+  }
+  function handleDeleteProject(projectId) {
+    setProjects(prevProjects => prevProjects.filter(proj => proj.id !== projectId));
   }
 
   const noProjectSelectedElem = (
@@ -45,13 +48,22 @@ function App() {
     </section>
   );
 
+  let renderElem;
+  if (project === 'default') {
+    renderElem = noProjectSelectedElem;
+  }
+  else if (project === 'create') {
+    renderElem = <ProjectForm handleSetProjects={handleSetProjects} handleSetProject={handleSetProject} />;
+  }
+  else if (project === 'project') {
+    renderElem = <Project project={projects[project]} handleDeleteProject={handleDeleteProject} />;
+  }
+
   return (
     <main className="h-screen mt-8 flex gap-8">
       <Sidebar projects={projects} handleSetProject={handleSetProject} />
       
-      {project === 'default' && noProjectSelectedElem}
-      {project === 'create' && <ProjectForm handleSetProjects={handleSetProjects} handleSetProject={handleSetProject} />}
-      {project === 'project' && <Project project={projects[project]} />}
+      { renderElem }
     </main>
   );
 }
