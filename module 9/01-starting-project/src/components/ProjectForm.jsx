@@ -21,7 +21,7 @@ export default function ProjectForm({ handleSetProjects, handleSetProject }) {
     const refProjectDate = useRef();
 
     function onSave() {
-        handleSetProjects(refProjectTitle.current.value, refProjectDescription.current.value, refProjectDate.current.value);
+        handleSetProjects(refProjectTitle, refProjectDescription, refProjectDate);
 
         handleSetProject('default');
     }

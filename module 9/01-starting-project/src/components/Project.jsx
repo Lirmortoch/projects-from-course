@@ -7,12 +7,12 @@ export default function Project({ project, handleDeleteProject }) {
     function handleSetTasks(title) {
         const newTask = {
             id: tasks.length + 1,
-            title: title,
+            title: title.current.value,
         }
 
         setTasks(prevTasks => prevTasks.concat(newTask));
 
-        title = '';
+        title.current.value = '';
     }
     function handleDeleteTask(taskId) {
         setTasks(prevTasks => prevTasks.filter(task => task.id !== taskId));
@@ -40,14 +40,14 @@ export default function Project({ project, handleDeleteProject }) {
                     {/* <label htmlFor="project-task">Add task</label> */}
                     <input type="text" id="project-task" placeholder="Enter task" ref={inputTaskRef} className="w-64 px-2 py-1 rounded-sm bg-stone-200" />
 
-                    <button type="submit" onClick={(e) => handleSetTasks(inputTaskRef.current.value)} className="text-stone-800 hover:text-stone-950" >Add Task</button>
+                    <button type="submit" onClick={(e) => handleSetTasks(inputTaskRef)} className="text-stone-800 hover:text-stone-950" >Add Task</button>
                 </form>
 
                 <ul className="p-4 mt-8 rounded-md bg-stone-100">
                     {tasks.map(task => {
                         return <li key={task.id} className="flex justify-between my-4">
                             <span>{task.title}</span>
-                            <button onClick={(e) => handleDeleteTask(task.id)}>Clear</button>
+                            <button onClick={(e) => handleDeleteTask(task.id)} className="text-stone-850 hover:text-red-700" >Clear</button>
                         </li>                     
                     })}
                 </ul>

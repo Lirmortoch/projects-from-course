@@ -13,14 +13,14 @@ function App() {
   function handleSetProjects(title, description, date) {
     const newProject = {
       id: projects.length + 1,
-      title: title,
-      description: description,
-      date: date,
+      title: title.current.value,
+      description: description.current.value,
+      date: date.current.value,
     }
 
     setProjects(prevProjects => prevProjects.concat(newProject));
 
-    title, description, date = '';
+    title.current.value, description.current.value, date.current.value = '';
   }
   function handleSetProject(state, projectIdx = null) {
     if (state === 'project') {
