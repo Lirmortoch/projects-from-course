@@ -11,11 +11,16 @@ function App() {
   const [project, setProject] = useState(['default', null]);
 
   function handleSetProjects(title, description, date) {
+    const formattedDate = new Date(date.current.value).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    });
     const newProject = {
       id: projects.length + 1,
       title: title.current.value,
       description: description.current.value,
-      date: date.current.value,
+      date: formattedDate,
     }
 
     setProjects(prevProjects => prevProjects.concat(newProject));
