@@ -8,7 +8,7 @@ import noProjectImage from './assets/no-projects.png'
 
 function App() {
   const [projects, setProjects] = useState([]);
-  const [project, setProject] = useState('default');
+  const [project, setProject] = useState(['default', null]);
 
   function handleSetProjects(title, description, date) {
     const newProject = {
@@ -24,14 +24,15 @@ function App() {
   }
   function handleSetProject(state, projectIdx = null) {
     if (state === 'project') {
-      setProject(projectIdx);
+      setProject([state, projectIdx]);
     }
     else {
-      setProject(state);
+      setProject([state, projectIdx]);
     }
   }
   function handleDeleteProject(projectId) {
     setProjects(prevProjects => prevProjects.filter(proj => proj.id !== projectId));
+    setProject(['default', null]);
   }
 
   const noProjectSelectedElem = (
@@ -49,14 +50,14 @@ function App() {
   );
 
   let renderElem;
-  if (project === 'default') {
+  if (project[0] === 'default') {
     renderElem = noProjectSelectedElem;
   }
-  else if (project === 'create') {
+  else if (project[0] === 'create') {
     renderElem = <ProjectForm handleSetProjects={handleSetProjects} handleSetProject={handleSetProject} />;
   }
-  else if (project === 'project') {
-    renderElem = <Project project={projects[project]} handleDeleteProject={handleDeleteProject} />;
+  else if (project[0] === 'project') {
+    renderElem = <Project project={projects[project[1]]} handleDeleteProject={handleDeleteProject} />;
   }
 
   return (
