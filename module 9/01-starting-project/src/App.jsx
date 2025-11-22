@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 import Project from "./components/Project";
 import ProjectForm from "./components/ProjectForm";
 import Sidebar from "./components/Sidebar";
+import Modal from "./components/Modal";
 
 import noProjectImage from './assets/no-projects.png'
 
@@ -10,12 +11,24 @@ function App() {
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState(['default', null]);
 
+  const modal = useRef();
+
   function handleSetProjects(title, description, date) {
     const formattedDate = new Date(date.current.value).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric"
     });
+
+    if  (
+        title.current.value.trim() === '' || 
+        description.current.value.trim() === '' || 
+        formattedDate.trim() === ''
+        ) {
+            modal.current.open();
+            return;
+          }
+    
     const newProject = {
       id: projects.length + 1,
       title: title.current.value,
@@ -32,8 +45,11 @@ function App() {
       setProject([state, projectIdx]);
     }
     else {
-      setProject([state, projectIdx]);
+      setProject([state, null]);
     }
+  }
+  function handleResetProject() {
+    setProject(['default', null]);
   }
   function handleDeleteProject(projectId) {
     setProjects(prevProjects => prevProjects.filter(proj => proj.id !== projectId));
@@ -66,7 +82,12 @@ function App() {
   }
 
   return (
-    <main className="h-screen mt-8 flex gap-8">
+    <main className="h-screen mt-8 flex gap-8" id="main">
+      <Modal 
+        ref={modal}
+        text={'You forgot enter some field!'}
+      />
+
       <Sidebar projects={projects} handleSetProject={handleSetProject} />
       
       { renderElem }

@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 
 export default function Project({ project, handleDeleteProject }) {
     const [tasks, setTasks] = useState([]);
+    
     const inputTaskRef = useRef();
 
     function handleSetTasks(title) {
