@@ -48,9 +48,6 @@ function App() {
       setProject([state, null]);
     }
   }
-  function handleResetProject() {
-    setProject(['default', null]);
-  }
   function handleDeleteProject(projectId) {
     setProjects(prevProjects => prevProjects.filter(proj => proj.id !== projectId));
     setProject(['default', null]);

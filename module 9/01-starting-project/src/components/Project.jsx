@@ -1,11 +1,18 @@
 import { useState, useRef } from "react";
+import Modal from "./Modal";
 
 export default function Project({ project, handleDeleteProject }) {
     const [tasks, setTasks] = useState([]);
     
     const inputTaskRef = useRef();
+    const modal = useRef();
 
     function handleSetTasks(title) {
+        if (title.current.value.trim() === '') {
+            modal.current.open();
+            return;
+        }
+
         const newTask = {
             id: tasks.length + 1,
             title: title.current.value,
@@ -21,6 +28,10 @@ export default function Project({ project, handleDeleteProject }) {
 
     return (
         <section className="w-[35rem] mt-16">
+            <Modal 
+                ref={modal}
+                text={'You forgot enter task field!'}
+            />
             {/* Project's header */}
             <header className="pb-4 mb-4 border-b-2 border-stone-300">
                 <div className="flex items-center justify-between mb-4">
