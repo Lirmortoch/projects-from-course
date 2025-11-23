@@ -1,5 +1,6 @@
 import './App.css'
 import { useRef, useState, useImperativeHandle } from 'react';
+import { createPortal } from 'react-dom'
 
 const user = {
   name: '',
@@ -416,13 +417,51 @@ function Form({ ref, onReset }) {
   );
 }
 
+function Toast({ ref, onReset, text }) {
+  const modal = useRef();
 
+  useImperativeHandle(ref, () => {
+    return {
+      open() {
+        modal.current.showModal();
+        onReset();
+      },
+      closeModal() {
+        modal.current.close();
+      }
+    }
+  });
+
+  return (
+    <dialog ref={modal}>
+      <h2>{text}</h2>
+    </dialog>
+  );
+}
+function UseToast() {
+  const modal = useRef();
+
+  function handleOnReset() {
+    setTimeout(() => {modal.current.closeModal()}, 3 * 1000);
+  }
+
+  return (
+    <div>
+      <Toast
+        ref={modal}
+        onReset={handleOnReset}
+        text={'User been registered'}
+      />
+      <button onClick={() => modal.current.open()}>Open modal window</button>
+    </div>
+  )
+}
 
 // Section 8
 
 function App() {
   return (
-    <></>
+    <UseToast/>
   );
 }
 
