@@ -4,7 +4,7 @@ import { ThemeContext } from "./store/theme-context";
 
 export default function ThemeApp() {
   const { value } = useContext(ThemeContext);
-  console.log(value)
+  
   return (
 
       <div id='app' className={value}>
