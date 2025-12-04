@@ -3,7 +3,8 @@ import quizLogo from './assets/quiz-logo.png'
 
 function App() {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  const [question, setQuestion] = useState({});
+  const [question, setQuestion] = useState(0);
+  const [end, setEnd] = useState(false);
 
   return (
     <main>

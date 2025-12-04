@@ -1,4 +1,12 @@
+import { useState } from "react";
+
+const ANSWERING_TIMER = 10; // seconds
+const DELAY_TIMER = 3; // seconds
+
 export default function Question({ question, handleSetChoice }) {
+  const [questionState, setQuestionState] = useState('answering');
+  const [isTimerEnd, setIsTimerEnd] = useState(false);
+
   return (
     <section id="last-try">
       <h2>{question.text}</h2>
