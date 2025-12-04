@@ -6,6 +6,19 @@ const DELAY_TIMER = 3; // seconds
 export default function Question({ question, handleSetChoice }) {
   const [questionState, setQuestionState] = useState('answering');
   const [isTimerEnd, setIsTimerEnd] = useState(false);
+  const [isAnsCorrect, setIsAnsCorrect] = useState(false);
+
+  let ansClassName;
+  let isDisabled = false;
+
+  if (questionState === 'viewAnswer') {
+    ansClassName = isAnsCorrect ? 'correct' : 'wrong';
+    isDisabled = true;
+  }
+
+  function handleSetIsAnsCorrect() {
+    
+  }
 
   return (
     <section id="last-try">
@@ -16,7 +29,12 @@ export default function Question({ question, handleSetChoice }) {
           question.answers.map((answer, idx) => {
             return (
               <li key={idx}>
-                <button onClick={() => handleSetChoice(question.id, answer, question['right-answer'])}>{answer}</button>
+                <button 
+                  onClick={() => handleSetChoice(question.id, answer, question['right-answer'])}
+                  className={ansClassName}
+                  disabled={isDisabled}>
+                    {answer}
+                  </button>
               </li>
             );
           })
