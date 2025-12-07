@@ -16,21 +16,21 @@ export default function Question({ question, handleSetChoice }) {
     isDisabled = true;
   }
 
-  function handleSetIsAnsCorrect() {
-    
+  function handleSetIsAnsCorrect(answer, correctAns) {
+    setIsAnsCorrect(answer === correctAns);
   }
 
   return (
-    <section id="last-try">
+    <section id="question">
       <h2>{question.text}</h2>
 
-      <ul>
+      <ul id="answers">
         {
           question.answers.map((answer, idx) => {
             return (
-              <li key={idx}>
+              <li key={idx} className="answer">
                 <button 
-                  onClick={() => handleSetChoice(question.id, answer, question['right-answer'])}
+                  onClick={() => handleSetChoice(question.id, answer, question['right-answer'], handleSetIsAnsCorrect)}
                   className={ansClassName}
                   disabled={isDisabled}>
                     {answer}
