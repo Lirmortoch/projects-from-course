@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
 const ANSWERING_TIMER = 10; // seconds
@@ -7,30 +7,41 @@ const AFTER_ANSWERING = 5; // seconds
 
 export default function Question({ question }) {
   const [questionState, setQuestionState] = useState('answering');
-  const [isTimerEnd, setIsTimerEnd] = useState(false);
-  const [isAnsCorrect, setIsAnsCorrect] = useState(false);
+  const [timer, setTimer] = useState(ANSWERING_TIMER);
+
+  useEffect(() => {
+    let timer = ANSWERING_TIMER;
+    if (questionState === 'beforeViewAnswer') {
+      timer = DELAY_TIMER;
+    }
+    else if (questionState === 'viewAnswer') {
+      timer = AFTER_ANSWERING;
+    }
+
+    const timeoutID = setTimeout(() => {
+
+    }, timer * 1000);
+
+    return () => {
+      // setTimer();
+      clearTimeout(timeoutID);
+    }
+  }, [])
 
   let ansClassName;
   let isDisabled = questionState !== 'answering';
-  let timer = ANSWERING_TIMER;
 
   if (questionState === 'beforeViewAnswer') {
     ansClassName = 'selected';
-    timer = DELAY_TIMER;
   }
   else if (questionState === 'viewAnswer') {
     ansClassName = isAnsCorrect ? 'correct' : 'wrong';
-    timer = AFTER_ANSWERING;
-  }
-
-  function handleSetIsAnsCorrect(answer, correctAns) {
-    setIsAnsCorrect(answer === correctAns);
   }
 
   return (
     <section id="question">
       <div id="quiz">
-        {/* <ProgressBar timer={timer} /> */}
+        <ProgressBar timer={timer} />
         <h2>{question.text}</h2>
         <ul id="answers">
           {
