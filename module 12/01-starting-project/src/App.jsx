@@ -4,23 +4,20 @@ import questions from "./questions";
 import Question from "./Components/Question";
 
 function App() {
-  const [selectedQuestions, setSelectedQuestions] = useState();
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [question, setQuestion] = useState(0);
   const [end, setEnd] = useState(false);
 
-  function handleSetChoice(questionID, answer, correctAns, handleSetIsAnsCorrect) {
+  function handleSetChoice(questionID, answer) {
     const ans = {
       questionID,
       answer
     }
     
-    handleSetIsAnsCorrect(answer, correctAns);
-    setSelectedQuestions(prevQuestions => prevQuestions.concat(ans));
+    setSelectedQuestions(prevQuestions => prevQuestions.concat(ans));    
   }
 
-  function handleSetQuestion() {
-
-  }
+  
 
   return (
     <main>

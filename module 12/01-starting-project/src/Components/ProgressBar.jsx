@@ -5,7 +5,7 @@ export default function ProgressBar({ timer }) {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      setTime(prevTime => prevTime - 10)  ;
+      setTime((prevTime) => prevTime - 10)  ;
     }, 10);
 
     return () => {
@@ -14,5 +14,5 @@ export default function ProgressBar({ timer }) {
   }, []);
 
 
-  return <progress value={time} max={timer}></progress>;
+  return <progress value={time} max={timer * 1000} />;
 }

@@ -1,19 +1,26 @@
 import { useState } from "react";
+import ProgressBar from "./ProgressBar";
 
 const ANSWERING_TIMER = 10; // seconds
 const DELAY_TIMER = 3; // seconds
+const AFTER_ANSWERING = 5; // seconds
 
-export default function Question({ question, handleSetChoice }) {
+export default function Question({ question }) {
   const [questionState, setQuestionState] = useState('answering');
   const [isTimerEnd, setIsTimerEnd] = useState(false);
   const [isAnsCorrect, setIsAnsCorrect] = useState(false);
 
   let ansClassName;
-  let isDisabled = false;
+  let isDisabled = questionState !== 'answering';
+  let timer = ANSWERING_TIMER;
 
-  if (questionState === 'viewAnswer') {
+  if (questionState === 'beforeViewAnswer') {
+    ansClassName = 'selected';
+    timer = DELAY_TIMER;
+  }
+  else if (questionState === 'viewAnswer') {
     ansClassName = isAnsCorrect ? 'correct' : 'wrong';
-    isDisabled = true;
+    timer = AFTER_ANSWERING;
   }
 
   function handleSetIsAnsCorrect(answer, correctAns) {
@@ -22,24 +29,26 @@ export default function Question({ question, handleSetChoice }) {
 
   return (
     <section id="question">
-      <h2>{question.text}</h2>
-
-      <ul id="answers">
-        {
-          question.answers.map((answer, idx) => {
-            return (
-              <li key={idx} className="answer">
-                <button 
-                  onClick={() => handleSetChoice(question.id, answer, question['right-answer'], handleSetIsAnsCorrect)}
-                  className={ansClassName}
-                  disabled={isDisabled}>
-                    {answer}
-                  </button>
-              </li>
-            );
-          })
-        }
-      </ul>
+      <div id="quiz">
+        {/* <ProgressBar timer={timer} /> */}
+        <h2>{question.text}</h2>
+        <ul id="answers">
+          {
+            question.answers.map((answer, idx) => {
+              return (
+                <li key={idx} className="answer">
+                  <button
+                    onClick={() => {}}
+                    className={ansClassName}
+                    disabled={isDisabled}>
+                      {answer}
+                    </button>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </div>
     </section>
   )
 }
