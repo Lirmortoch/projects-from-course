@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 
 const ANSWERING_TIMER = 10; // seconds
-const DELAY_TIMER = 3; // seconds
-const AFTER_ANSWERING = 5; // seconds
+const DELAY_TIMER = 2; // seconds
+const AFTER_ANSWERING = 4; // seconds
 
 export default function Question({ question, handleSetNextQuestion }) {
   const [questionState, setQuestionState] = useState('answering');
   const [timer, setTimer] = useState(ANSWERING_TIMER);
-  const [isAnsCorrect, setIsAnsCorrect] = useState(false);
+  const [questionAnswer, setAnswer] = useState({});
 
   useEffect(() => {
     let timeoutTimer = ANSWERING_TIMER;
@@ -41,19 +41,12 @@ export default function Question({ question, handleSetNextQuestion }) {
     }
   }, [questionState]);
 
-  function handleSetIsAnsCorrect(ans, correctAns) {
-    setIsAnsCorrect(ans === correctAns);
+  function handleSetAnswer(ans, correctAns, idx) {
+    const answer = { ansIdx: idx, correct: ans === correctAns };
+    setAnswer(idx !== undefined ? answer : { ansIdx: null, correct: false });
   }
 
-  let ansClassName;
   let isDisabled = questionState !== 'answering';
-
-  if (questionState === 'beforeViewAnswer') {
-    ansClassName = 'selected';
-  }
-  else if (questionState === 'viewAnswer') {
-    ansClassName = isAnsCorrect ? 'correct' : 'wrong';
-  }
 
   return (
     <section id="question">
@@ -63,11 +56,15 @@ export default function Question({ question, handleSetNextQuestion }) {
         <ul id="answers">
           {
             question.answers.map((answer, idx) => {
+              let ansClassName = '';
+              if (questionAnswer.ansIdx === idx) {
+                ansClassName = 'selected';
+              }
               return (
                 <li key={idx} className="answer">
                   <button
                     onClick={() => {
-                      handleSetIsAnsCorrect(answer, question['correct-answer']);
+                      handleSetAnswer(answer, question['correct-answer'], idx);
                     }}
                     className={ansClassName}
                     disabled={isDisabled}>
