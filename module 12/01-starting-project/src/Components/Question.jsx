@@ -5,28 +5,45 @@ const ANSWERING_TIMER = 10; // seconds
 const DELAY_TIMER = 3; // seconds
 const AFTER_ANSWERING = 5; // seconds
 
-export default function Question({ question }) {
+export default function Question({ question, handleSetNextQuestion }) {
   const [questionState, setQuestionState] = useState('answering');
   const [timer, setTimer] = useState(ANSWERING_TIMER);
+  const [isAnsCorrect, setIsAnsCorrect] = useState(false);
 
   useEffect(() => {
-    let timer = ANSWERING_TIMER;
+    let timeoutTimer = ANSWERING_TIMER;
     if (questionState === 'beforeViewAnswer') {
-      timer = DELAY_TIMER;
+      timeoutTimer = DELAY_TIMER;
     }
     else if (questionState === 'viewAnswer') {
-      timer = AFTER_ANSWERING;
+      timeoutTimer = AFTER_ANSWERING;
     }
 
     const timeoutID = setTimeout(() => {
-
-    }, timer * 1000);
+      setQuestionState(prevQuestionState => {
+        if (prevQuestionState === 'answering') {
+          setTimer(DELAY_TIMER);
+          return 'beforeViewAnswer';
+        }
+        else if (prevQuestionState === 'beforeViewAnswer') {
+          setTimer(AFTER_ANSWERING);
+          return 'viewAnswer';
+        }
+        else {
+          setTimer(ANSWERING_TIMER);
+          return 'answering';
+        }
+      })
+    }, timeoutTimer * 1000);
 
     return () => {
-      // setTimer();
       clearTimeout(timeoutID);
     }
-  }, [])
+  }, [questionState]);
+
+  function handleSetIsAnsCorrect(ans, correctAns) {
+    setIsAnsCorrect(ans === correctAns);
+  }
 
   let ansClassName;
   let isDisabled = questionState !== 'answering';
@@ -49,7 +66,9 @@ export default function Question({ question }) {
               return (
                 <li key={idx} className="answer">
                   <button
-                    onClick={() => {}}
+                    onClick={() => {
+                      handleSetIsAnsCorrect(answer, question['correct-answer']);
+                    }}
                     className={ansClassName}
                     disabled={isDisabled}>
                       {answer}

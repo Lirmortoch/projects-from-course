@@ -17,7 +17,7 @@ function App() {
     setSelectedQuestions(prevQuestions => prevQuestions.concat(ans));    
   }
 
-  function handleNextQuestion() {
+  function handleSetNextQuestion() {
     setQuestion(prevQuestion => {
       if (prevQuestion < questions.length) return prevQuestion + 1;
     });
@@ -30,7 +30,7 @@ function App() {
         <h1>React Quiz</h1>
       </header>
 
-      <Question question={questions[question]} handleSetChoice={handleSetChoice} handleNextQuestion={handleNextQuestion} />
+      <Question question={questions[question]} handleSetChoice={handleSetChoice} handleSetNextQuestion={handleSetNextQuestion} />
     </main>
   )
 }
