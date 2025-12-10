@@ -26,7 +26,7 @@ function App() {
     renderElem = <Question question={questions[question]} handleSetChoice={handleSetChoice} handleSetNextQuestion={handleSetNextQuestion} />;
   }
   else {
-    renderElem = <Result />
+    renderElem = <Result questions={questions} answers={selectedQuestions} />
   }
 
   return (
@@ -36,7 +36,7 @@ function App() {
         <h1>React Quiz</h1>
       </header>
 
-      <Question question={questions[question]} handleSetChoice={handleSetChoice} handleSetNextQuestion={handleSetNextQuestion} />
+      { renderElem }
     </main>
   )
 }

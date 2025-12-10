@@ -7,7 +7,7 @@ const AFTER_ANSWERING = 4; // seconds
 
 export default function Question({ question, handleSetNextQuestion, handleSetChoice }) {
   const [questionState, setQuestionState] = useState('answering');
-  const [questionAnswer, setAnswer] = useState({});
+  const [questionAnswer, setAnswer] = useState({questionID: question.id, ansIdx: null, correct: false});
 
   let timer = ANSWERING_TIMER;
   if (questionState === 'beforeViewAnswer') {
@@ -36,6 +36,7 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
     return () => {
       clearTimeout(timeoutID);
       if (questionState === 'viewAnswer') {
+        handleSetChoice(questionAnswer);
         setAnswer({});
         handleSetNextQuestion();
       }
@@ -43,9 +44,13 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
   }, [questionState]);
 
   function handleSetAnswer(ans, correctAns, idx) {
-    const answer = { ansIdx: idx, correct: ans === correctAns };
-    setAnswer(idx !== undefined ? answer : { ansIdx: null, correct: false });
+    const answer = {
+      questionID: question.id,
+      ansIdx: idx,
+      correct: ans === correctAns,
+    }
 
+    setAnswer(answer);
     setQuestionState('beforeViewAnswer');
   }
 
