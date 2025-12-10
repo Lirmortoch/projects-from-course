@@ -7,7 +7,7 @@ const AFTER_ANSWERING = 4; // seconds
 
 export default function Question({ question, handleSetNextQuestion, handleSetChoice }) {
   const [questionState, setQuestionState] = useState('answering');
-  const [questionAnswer, setAnswer] = useState({});
+  const [questionAnswer, setAnswer] = useState({questionID: null});
 
   let timer = ANSWERING_TIMER;
   if (questionState === 'beforeViewAnswer') {
@@ -25,9 +25,7 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
         }
         else if (prevQuestionState === 'beforeViewAnswer') {
           return 'viewAnswer';
-        }
-        else {
-          setAnswer({});
+        }        else {
           return 'answering';
         }
       })
@@ -35,9 +33,10 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
 
     return () => {
       clearTimeout(timeoutID);
+
       if (questionState === 'viewAnswer') {
         handleSetChoice(questionAnswer);
-        setAnswer({});
+        setAnswer({questionID: null});
         handleSetNextQuestion();
       }
     }
@@ -58,7 +57,9 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
     <section id="question">
       <div id="quiz">
         <ProgressBar timer={timer} clsName={questionState === 'beforeViewAnswer' ? 'answered' : ''} />
+
         <h2>{question.text}</h2>
+
         <ul id="answers">
           {
             question.answers.map((answer, idx) => {
@@ -92,6 +93,10 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
             })
           }
         </ul>
+
+        <div id="skip-action">
+          <button onClick={() => {setQuestionState('viewAnswer')}}>Skip</button>
+        </div>
       </div>
     </section>
   )

@@ -1,9 +1,13 @@
 import summaryLogo from '../assets/quiz-complete.png';
 
+const getStat = (arr1, arr2) => {
+  return ((arr1.length / arr2.length) * 100).toFixed(0);
+}
+
 export default function Result({ questions, answers }) {
-  const skipped = ((answers.filter(ans => Object.keys(ans).length === 0).length / questions.length) * 100).toFixed(0);
-  const correct = ((answers.filter(ans => ans.correct).length / questions.length) * 100).toFixed(0);
-  const wrong = ((answers.filter(ans => !ans.correct && Object.keys(ans).length !== 0).length / questions.length) * 100).toFixed(0);
+  const skipped = getStat(answers.filter(ans => ans.questionID === null), questions);
+  const correct = getStat(answers.filter(ans => ans.correct), questions);
+  const wrong = getStat(answers.filter(ans => !ans.correct && ans.questionID !== null), questions);
 
   console.log(answers);
 
@@ -32,7 +36,7 @@ export default function Result({ questions, answers }) {
       <ol>
         {answers.map((item, idx) => {
           let ansClassName = 'user-answer';
-          const isSkipped = Object.keys(item).length === 0;
+          const isSkipped = item.questionID == null;
           
           if (isSkipped) {
             ansClassName += ' skipped';
