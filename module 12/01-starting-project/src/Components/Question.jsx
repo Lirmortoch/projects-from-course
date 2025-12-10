@@ -5,7 +5,7 @@ const ANSWERING_TIMER = 10; // seconds
 const DELAY_TIMER = 2; // seconds
 const AFTER_ANSWERING = 4; // seconds
 
-export default function Question({ question, handleSetNextQuestion }) {
+export default function Question({ question, handleSetNextQuestion, handleSetChoice }) {
   const [questionState, setQuestionState] = useState('answering');
   const [questionAnswer, setAnswer] = useState({});
 
@@ -36,6 +36,7 @@ export default function Question({ question, handleSetNextQuestion }) {
     return () => {
       clearTimeout(timeoutID);
       if (questionState === 'viewAnswer') {
+        setAnswer({});
         handleSetNextQuestion();
       }
     }
@@ -59,25 +60,20 @@ export default function Question({ question, handleSetNextQuestion }) {
               let ansClassName = '';
               let isDisabled = false;
               
-              if (questionState === 'beforeViewAnswer') {
-                if (questionAnswer.ansIdx === idx) {
+              if (questionAnswer.ansIdx === idx) {
+                if (questionState === 'beforeViewAnswer') {
                   ansClassName = 'selected';
                 }
-                else {
-                  isDisabled = true; 
-                }
-              }
-              if (questionState === 'viewAnswer') {
-                if (questionAnswer.ansIdx === idx) {
+                else if (questionState === 'viewAnswer') {
                   ansClassName = questionAnswer.correct ? 'correct' : 'wrong';
                 }
-                else {
-                  isDisabled = true; 
-                }
+              }
+              if (questionState !== 'answering' && questionAnswer.ansIdx !== idx) {
+                isDisabled = true; 
               }
               
               return (
-                <li key={idx} className="answer">
+                <li key={question.id + '-' + idx} className="answer">
                   <button
                     onClick={() => {
                       handleSetAnswer(answer, question['correct-answer'], idx);
