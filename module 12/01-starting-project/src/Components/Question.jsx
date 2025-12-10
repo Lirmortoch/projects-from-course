@@ -7,7 +7,7 @@ const AFTER_ANSWERING = 4; // seconds
 
 export default function Question({ question, handleSetNextQuestion, handleSetChoice }) {
   const [questionState, setQuestionState] = useState('answering');
-  const [questionAnswer, setAnswer] = useState({questionID: question.id, ansIdx: null, correct: false});
+  const [questionAnswer, setAnswer] = useState({});
 
   let timer = ANSWERING_TIMER;
   if (questionState === 'beforeViewAnswer') {
