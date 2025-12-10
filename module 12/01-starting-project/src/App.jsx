@@ -20,6 +20,7 @@ function App() {
   function handleSetNextQuestion() {
     setQuestion(prevQuestion => {
       if (prevQuestion < questions.length) return prevQuestion + 1;
+      else return 0;
     });
   }
 

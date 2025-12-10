@@ -7,59 +7,75 @@ const AFTER_ANSWERING = 4; // seconds
 
 export default function Question({ question, handleSetNextQuestion }) {
   const [questionState, setQuestionState] = useState('answering');
-  const [timer, setTimer] = useState(ANSWERING_TIMER);
   const [questionAnswer, setAnswer] = useState({});
 
-  useEffect(() => {
-    let timeoutTimer = ANSWERING_TIMER;
-    if (questionState === 'beforeViewAnswer') {
-      timeoutTimer = DELAY_TIMER;
-    }
-    else if (questionState === 'viewAnswer') {
-      timeoutTimer = AFTER_ANSWERING;
-    }
+  let timer = ANSWERING_TIMER;
+  if (questionState === 'beforeViewAnswer') {
+    timer = DELAY_TIMER;
+  }
+  else if (questionState === 'viewAnswer') {
+    timer = AFTER_ANSWERING;
+  }
 
+  useEffect(() => {
     const timeoutID = setTimeout(() => {
       setQuestionState(prevQuestionState => {
         if (prevQuestionState === 'answering') {
-          setTimer(DELAY_TIMER);
           return 'beforeViewAnswer';
         }
         else if (prevQuestionState === 'beforeViewAnswer') {
-          setTimer(AFTER_ANSWERING);
           return 'viewAnswer';
         }
         else {
-          setTimer(ANSWERING_TIMER);
+          setAnswer({});
           return 'answering';
         }
       })
-    }, timeoutTimer * 1000);
+    }, timer * 1000);
 
     return () => {
       clearTimeout(timeoutID);
+      if (questionState === 'viewAnswer') {
+        handleSetNextQuestion();
+      }
     }
   }, [questionState]);
 
   function handleSetAnswer(ans, correctAns, idx) {
     const answer = { ansIdx: idx, correct: ans === correctAns };
     setAnswer(idx !== undefined ? answer : { ansIdx: null, correct: false });
-  }
 
-  let isDisabled = questionState !== 'answering';
+    setQuestionState('beforeViewAnswer');
+  }
 
   return (
     <section id="question">
       <div id="quiz">
-        <ProgressBar timer={timer} />
+        <ProgressBar timer={timer} clsName={questionState === 'beforeViewAnswer' ? 'answered' : ''} />
         <h2>{question.text}</h2>
         <ul id="answers">
           {
             question.answers.map((answer, idx) => {
               let ansClassName = '';
-              if (questionAnswer.ansIdx === idx) {
-                ansClassName = 'selected';
+              let isDisabled = false;
+              
+              if (questionState === 'beforeViewAnswer') {
+                if (questionAnswer.ansIdx === idx) {
+                  ansClassName = 'selected';
+                }
+                else {
+                  isDisabled = true; 
+                }
               }
+              if (questionState === 'viewAnswer') {
+                if (questionAnswer.ansIdx === idx) {
+                  ansClassName = questionAnswer.correct ? 'correct' : 'wrong';
+                }
+                else {
+                  isDisabled = true; 
+                }
+              }
+              
               return (
                 <li key={idx} className="answer">
                   <button
