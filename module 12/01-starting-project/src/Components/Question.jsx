@@ -25,7 +25,8 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
         }
         else if (prevQuestionState === 'beforeViewAnswer') {
           return 'viewAnswer';
-        }        else {
+        }        
+        else {
           return 'answering';
         }
       })
@@ -53,9 +54,13 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
     setQuestionState('beforeViewAnswer');
   }
 
+  function handleSkipQuestion() {
+    setQuestionState('viewAnswer')
+  }
+
   return (
-    <section id="question">
-      <div id="quiz">
+    <section id="quiz">
+      <div id="question">
         <ProgressBar timer={timer} clsName={questionState === 'beforeViewAnswer' ? 'answered' : ''} />
 
         <h2>{question.text}</h2>
@@ -95,7 +100,7 @@ export default function Question({ question, handleSetNextQuestion, handleSetCho
         </ul>
 
         <div id="skip-action">
-          <button onClick={() => {setQuestionState('viewAnswer')}}>Skip</button>
+          <button key={question.id} onClick={handleSkipQuestion}>Skip</button>
         </div>
       </div>
     </section>
