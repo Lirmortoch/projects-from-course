@@ -9,8 +9,6 @@ export default function Result({ questions, answers }) {
   const correct = getStat(answers.filter(ans => ans.correct), questions);
   const wrong = getStat(answers.filter(ans => !ans.correct && ans.questionID !== null), questions);
 
-  console.log(answers);
-
   return (
     <section id="summary">
       <div>
