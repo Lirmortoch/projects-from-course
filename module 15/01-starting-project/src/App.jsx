@@ -56,7 +56,7 @@ function App() {
     });
 
     try {
-      await updateUserPlaces([...userPlaces]);
+      await updateUserPlaces([selectedPlace, ...userPlaces]);
     }
     catch(error) {
       setUserPlaces(userPlaces);
