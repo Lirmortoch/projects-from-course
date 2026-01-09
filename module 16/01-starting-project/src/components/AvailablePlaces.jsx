@@ -5,6 +5,11 @@ import Error from './Error.jsx';
 import { sortPlacesByDistance } from '../loc.js';
 import { fetchAvailablePlaces } from '../http.js';
 
+const coords = {
+  latitude: 52.35,
+  longitude: 4.9166,
+}
+
 export default function AvailablePlaces({ onSelectPlace }) {
   const [isFetching, setIsFetching] = useState(false);
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -16,16 +21,14 @@ export default function AvailablePlaces({ onSelectPlace }) {
 
       try {
         const places = await fetchAvailablePlaces();
-
-        navigator.geolocation.getCurrentPosition((position) => {
-          const sortedPlaces = sortPlacesByDistance(
-            places,
-            position.coords.latitude,
-            position.coords.longitude
-          );
-          setAvailablePlaces(sortedPlaces);
-          setIsFetching(false);
-        });
+        const sortedPlaces = sortPlacesByDistance(
+          places,
+          coords.latitude,
+          coords.longitude
+        );
+        
+        setAvailablePlaces(sortedPlaces);
+        setIsFetching(false);
       } catch (error) {
         setError({
           message:
