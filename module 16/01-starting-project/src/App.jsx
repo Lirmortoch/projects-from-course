@@ -41,8 +41,13 @@ function App() {
       if (prevPickedPlaces.some((place) => place.id === selectedPlace.id)) {
         return prevPickedPlaces;
       }
+      
       return [selectedPlace, ...prevPickedPlaces];
     });
+
+    if (userPlaces.some((place) => place.id === selectedPlace.id)) {
+      return;
+    }
 
     try {
       await updateUserPlaces([selectedPlace, ...userPlaces]);
