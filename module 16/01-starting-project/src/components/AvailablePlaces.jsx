@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react';
-
 import Places from './Places.jsx';
 import Error from './Error.jsx';
 import { sortPlacesByDistance } from '../loc.js';
@@ -11,25 +9,26 @@ const coords = {
   longitude: 4.9166,
 }
 
-// {
-//   const places = await fetchAvailablePlaces();
-//   const sortedPlaces = sortPlacesByDistance(
-//     places,
-//     coords.latitude,
-//     coords.longitude
-//   );
+async function fetchSortedPlaces() {
+  const places = await fetchAvailablePlaces();
   
-//   setAvailablePlaces(sortedPlaces);
-//   setIsFetching(false);
-// }
+  return new Promise((resolve, reject) => {
+    const sortedPlaces = sortPlacesByDistance(
+      places,
+      coords.latitude,
+      coords.longitude
+    );
+
+    resolve(sortedPlaces);
+  });
+}
 
 export default function AvailablePlaces({ onSelectPlace }) {
   const {
     isFetching,
     error, 
     fetchedData: availablePlaces,
-    setFetchedData: setAvailablePlaces,
-  } = useFetch(fetchAvailablePlaces, []);
+  } = useFetch(fetchSortedPlaces, []);
 
   if (error) {
     return <Error title="An error occurred!" message={error.message} />;
