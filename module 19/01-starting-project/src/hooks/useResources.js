@@ -1,13 +1,14 @@
-import axios from 'axios';
 import { useState, useEffect } from "react";
+
+import foodService from '../services/food';
 
 function useResources(baseUrl) {
   const [resources, setResources] = useState([]);
 
   async function get() {
     try {
-      const response = await axios.get(baseUrl);
-      setResources(response.data);
+      const data = await foodService.getAll(baseUrl);
+      setResources(data);
     }
     catch(error) {
       console.log(error);
@@ -19,7 +20,7 @@ function useResources(baseUrl) {
 
   async function create(resource) {
     try {
-      const response = await axios.post(baseUrl, resource);
+      const response = await foodService.create(baseUrl, resource);
       setResources(prevResources => [resource, ...prevResources]);
     }
     catch(error) {
