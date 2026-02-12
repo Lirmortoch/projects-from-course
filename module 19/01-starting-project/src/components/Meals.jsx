@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { MealsContext } from '../store/MealsContext';
+
 function Meal({ meal, addToCart }) {
   return (
     <div className="meals__meal meal-item">
@@ -16,7 +19,9 @@ function Meal({ meal, addToCart }) {
   );
 }
 
-export default function Meals({ meals }) {
+export default function Meals() {
+  const { meals } = useContext(MealsContext);
+
   return (
     <main id="meals" className="meals">
       {

@@ -12,7 +12,6 @@ export default function useResources(baseUrl) {
     }
     catch(error) {
       console.log(error);
-      setResources(resources);
     }
   }
 
@@ -25,7 +24,6 @@ export default function useResources(baseUrl) {
     }
     catch(error) {
       console.log(error);
-      setResources(resources);
     }
   }
 
