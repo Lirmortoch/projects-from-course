@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import foodService from '../services/food';
 
-function useResources(baseUrl) {
+export default function useResources(baseUrl) {
   const [resources, setResources] = useState([]);
 
   async function get() {
@@ -16,7 +16,7 @@ function useResources(baseUrl) {
     }
   }
 
-  useEffect(get, []);
+  useEffect(() => {get()}, []);
 
   async function create(resource) {
     try {

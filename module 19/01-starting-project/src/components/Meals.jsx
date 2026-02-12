@@ -8,7 +8,7 @@ function Meal({ meal, addToCart }) {
           <p className="meal-item-price">{meal.price}</p>
           <p className="meal-item-description">{meal.description}</p>
         </div>
-        <p class="meal-item-actions">
+        <p className="meal-item-actions">
           <button className="button">Add to Cart</button>
         </p>
       </article>

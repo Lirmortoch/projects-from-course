@@ -30,7 +30,7 @@ const create = async (baseUrl, data) => {
   }
 }
 
-export {
+export default {
   getAll,
   create,
 }
