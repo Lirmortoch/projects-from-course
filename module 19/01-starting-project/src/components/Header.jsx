@@ -2,7 +2,7 @@ import logo from '../assets/logo.jpg';
 
 import Cart from './Cart';
 
-export default function Header({}) {
+export default function Header({ cart }) {
   return (
     <header className='header' id='main-header'>
       <h1 className='header__title title' id='title'>
@@ -10,7 +10,7 @@ export default function Header({}) {
         Reactfood
       </h1>
 
-      <Cart />
+      <Cart cart={cart}/>
     </header>
   );
 }

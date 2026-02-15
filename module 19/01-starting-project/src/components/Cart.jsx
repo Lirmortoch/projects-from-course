@@ -1,8 +1,4 @@
-import { useState } from "react"
-
-export default function Cart({}) {
-  const [cart, setCart] = useState([]);
-
+export default function Cart({ cart }) {
   return (
     <button className="header__cart cart text-button">
       Cart ({cart.length})
