@@ -4,9 +4,7 @@ import { OrdersContextProvider } from "./OrdersContext";
 export default function AppProvider({ children }) {
   return (
     <MealsContextProvider>
-      <OrdersContextProvider>
-        {children}
-      </OrdersContextProvider>
+      <OrdersContextProvider>{children}</OrdersContextProvider>
     </MealsContextProvider>
   );
 }

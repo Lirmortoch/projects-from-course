@@ -8,13 +8,13 @@ export const OrdersContext = createContext({
 });
 
 export function OrdersContextProvider({ children }) {
-  const [orders, ordersService] = useResources('http://localhost:3000/orders');
+  const [orders, ordersService] = useResources("http://localhost:3000/orders");
 
   const ordersCtxValue = {
     orders,
     getOrders: ordersService.get,
     createNewOrder: ordersService.create,
-  }
+  };
 
   return (
     <OrdersContext.Provider value={ordersCtxValue}>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import foodService from '../services/food';
+import foodService from "../services/food";
 
 export default function useResources(baseUrl) {
   const [resources, setResources] = useState([]);
@@ -9,20 +9,20 @@ export default function useResources(baseUrl) {
     try {
       const data = await foodService.getAll(baseUrl);
       setResources(data);
-    }
-    catch(error) {
+    } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {get()}, []);
+  useEffect(() => {
+    get();
+  }, []);
 
   async function create(resource) {
     try {
       const response = await foodService.create(baseUrl, resource);
-      setResources(prevResources => [resource, ...prevResources]);
-    }
-    catch(error) {
+      setResources((prevResources) => [resource, ...prevResources]);
+    } catch (error) {
       console.log(error);
     }
   }
@@ -30,10 +30,7 @@ export default function useResources(baseUrl) {
   const service = {
     get,
     create,
-  }
+  };
 
-  return [
-    resources, 
-    service,
-  ]
+  return [resources, service];
 }

@@ -1,12 +1,16 @@
-import logo from '../assets/logo.jpg';
+import logo from "../assets/logo.jpg";
 
-import CartBtn from './CartBtn';
+import CartBtn from "./CartBtn";
 
 export default function Header({ cartAmount, toggleCart }) {
   return (
-    <header className='header' id='main-header'>
-      <h1 className='header__title title' id='title'>
-        <img src={logo} alt='React Food App Logo' className='header__logo header-logo' />
+    <header className="header" id="main-header">
+      <h1 className="header__title title" id="title">
+        <img
+          src={logo}
+          alt="React Food App Logo"
+          className="header__logo header-logo"
+        />
         Reactfood
       </h1>
 
