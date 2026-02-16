@@ -36,14 +36,18 @@ export default function SubmitOrderForm({ closeForm, showNotification }) {
 
     try {
       await createNewOrder({ order });
-      
+      closeForm();
       showNotification('Success', 'Your order was submitted successfully \n We will get back to you with more details via email within the next few minutes');
+      clearCart();
 
-      return { errors: null }
+      return { errors: null, success: true };
     }
     catch(error) {
       showNotification('Error!', `Can't add order!`, 'error');
-      return { errors: null }
+      return { 
+        errors: error.message || 'Something went wrong', 
+        success: false 
+      };
     }
   }
 
@@ -61,7 +65,7 @@ export default function SubmitOrderForm({ closeForm, showNotification }) {
         <Control label={'Street'} type={'text'} name={'street'} />
 
         <div className="control-row">
-          <Control label={'Postal Code'} type={'number'} name={'postal-code'} />
+          <Control label={'Postal Code'} type={'text'} name={'postal-code'} />
           <Control label={'City'} type={'text'} name={'city'} />
         </div>
 
@@ -70,7 +74,13 @@ export default function SubmitOrderForm({ closeForm, showNotification }) {
             Close
           </button>
 
-          <button className='button' type="submit">Submit Order</button>
+          <button 
+            className='button' 
+            type="submit" 
+            disabled={isPending}
+          >
+            {isPending ? 'Submitting...' : 'Submit Order'}
+          </button>
         </div>
       </form>
     </div>

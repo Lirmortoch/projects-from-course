@@ -27,7 +27,6 @@ export default function App({}) {
   }
 
   function handleToSubmitOrder() {
-    setModalIsOpen(false);
     setFormIsOpen(true);
   }
 
@@ -36,7 +35,6 @@ export default function App({}) {
   }
 
   function handleShowNotification(title, message, type = '') {
-    setFormIsOpen(false);
     setNotification({
       isShowing: true,
       content: {

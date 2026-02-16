@@ -6,6 +6,11 @@ export default function Cart({ closeCart, toSubmitOrder }) {
 
   const checkoutBtnClassName = `button${cart.length < 1 ? ' disabled' : ''}`;
 
+  function checkoutOrder() {
+    closeCart();
+    toSubmitOrder();
+  }
+
   return (
     <div className="cart">
       <h2>Your Cart</h2>
@@ -39,7 +44,7 @@ export default function Cart({ closeCart, toSubmitOrder }) {
           Close
         </button>
         
-        <button className={checkoutBtnClassName} disabled={cart.length < 1} onClick={toSubmitOrder}>Go to Checkout</button>
+        <button className={checkoutBtnClassName} disabled={cart.length < 1} onClick={checkoutOrder}>Go to Checkout</button>
       </div>
     </div>
   );
