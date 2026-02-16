@@ -12,20 +12,23 @@ function Meal({ meal, addToCart }) {
           <p className="meal-item-description">{meal.description}</p>
         </div>
         <p className="meal-item-actions">
-          <button className="button">Add to Cart</button>
+          <button className="button" onClick={() => addToCart({
+            meal,
+            amount: 1,
+          })}>Add to Cart</button>
         </p>
       </article>
     </div>
   );
 }
 
-export default function Meals() {
+export default function Meals({ addToCart }) {
   const { meals } = useContext(MealsContext);
 
   return (
     <main id="meals" className="meals">
       {
-        meals.map(meal => <Meal key={meal.id} meal={meal} />)
+        meals.map(meal => <Meal key={meal.id} meal={meal} addToCart={addToCart} />)
       }
     </main>
   )

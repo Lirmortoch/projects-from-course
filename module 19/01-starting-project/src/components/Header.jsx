@@ -1,8 +1,8 @@
 import logo from '../assets/logo.jpg';
 
-import Cart from './Cart';
+import CartBtn from './CartBtn';
 
-export default function Header({ cart }) {
+export default function Header({ cartAmount }) {
   return (
     <header className='header' id='main-header'>
       <h1 className='header__title title' id='title'>
@@ -10,7 +10,7 @@ export default function Header({ cart }) {
         Reactfood
       </h1>
 
-      <Cart cart={cart}/>
+      <CartBtn cartAmount={cartAmount}/>
     </header>
   );
 }
