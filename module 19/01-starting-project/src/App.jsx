@@ -46,21 +46,25 @@ export default function App({}) {
     setCart(prevCart => {
       return prevCart.map(itm =>
         itm.meal.name === item.meal.name
-          ? { ...itm, amount: itm.amount + 1 }
+          ? { ...itm, amount: itm.amount - 1 }
           : itm
-      );
+      ).filter(itm => itm.amount !== 0);
     });
 
     handleSubtractCartLength();
   }
 
+  function handleToggleCart() {
+    setModalIsOpen(prevState => !prevState);
+  }
+
   return (
     <div>
       <Modal open={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <Cart cart={cart} handleAddAmountOfItem={handleAddAmountOfItem} handleSubtractAmountOfItem={handleSubtractAmountOfItem} />
+        <Cart cart={cart} handleAddAmountOfItem={handleAddAmountOfItem} handleSubtractAmountOfItem={handleSubtractAmountOfItem} toggleCart={handleToggleCart} />
       </Modal>
 
-      <Header cartAmount={cartLength}  />
+      <Header cartAmount={cartLength} toggleCart={handleToggleCart} />
 
       <Meals addToCart={handleAddToCart} />
     </div>
