@@ -1,7 +1,7 @@
 const getAll = async (baseUrl) => {
   try {
     const response = await fetch(baseUrl);
-    const data = response.json();
+    const data = await response.json();
 
     return data;
   } catch (error) {
@@ -21,7 +21,14 @@ const create = async (baseUrl, data) => {
     };
     const response = await fetch(baseUrl, options);
 
-    return response;
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => null);
+      throw new Error(
+        errorData?.message || `Request failed with status ${response.status}`
+      );
+    }
+
+    return await response.json();
   } catch (error) {
     console.error(error);
     throw Error(`Can't add new one: ${error.message}`);
