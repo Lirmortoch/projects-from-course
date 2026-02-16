@@ -14,7 +14,7 @@ export default function Header({ cartAmount, toggleCart }) {
         Reactfood
       </h1>
 
-      <CartBtn cartAmount={cartAmount} toggleCart={toggleCart} />
+      <CartBtn toggleCart={toggleCart} />
     </header>
   );
 }

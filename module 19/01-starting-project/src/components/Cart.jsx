@@ -1,10 +1,11 @@
-export default function Cart({
-  cart,
-  handleAddAmountOfItem,
-  handleSubtractAmountOfItem,
-  closeCart,
-  cartTotal,
-}) {
+import { useContext } from "react";
+import { CartContext } from "../store/CartContext";
+
+export default function Cart({ closeCart }) {
+  const { cart, cartPrice, addAmountOfItem, subtractAmountOfItem } = useContext(CartContext);
+
+  const checkoutBtnClassName = `button${cart.length < 1 ? ' disabled' : ''}`;
+
   return (
     <div className="cart">
       <h2>Your Cart</h2>
@@ -18,26 +19,26 @@ export default function Cart({
               </p>
 
               <div className="cart-item-actions">
-                <button onClick={() => handleSubtractAmountOfItem(item)}>
+                <button onClick={() => subtractAmountOfItem(item)}>
                   -
                 </button>
 
                 <span>{item.amount}</span>
 
-                <button onClick={() => handleAddAmountOfItem(item)}>+</button>
+                <button onClick={() => addAmountOfItem(item)}>+</button>
               </div>
             </li>
           );
         })}
       </ul>
 
-      <p className="cart-total">${cartTotal}</p>
+      <p className="cart-total">${cartPrice}</p>
 
       <div className="modal-actions">
         <button onClick={closeCart} className="text-button">
           Close
         </button>
-        <button className="button">Go to Checkout</button>
+        <button className={checkoutBtnClassName} disabled={cart.length < 1}>Go to Checkout</button>
       </div>
     </div>
   );

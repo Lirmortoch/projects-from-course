@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { MealsContext } from "../store/MealsContext";
+import { CartContext } from "../store/CartContext";
 
 function Meal({ meal, addToCart }) {
   return (
@@ -29,8 +30,9 @@ function Meal({ meal, addToCart }) {
   );
 }
 
-export default function Meals({ addToCart }) {
+export default function Meals({}) {
   const { meals } = useContext(MealsContext);
+  const { addToCart } = useContext(CartContext);
 
   return (
     <main id="meals" className="meals">
