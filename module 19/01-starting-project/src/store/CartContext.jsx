@@ -15,6 +15,8 @@ export const CartContext = createContext({
 
   addAmountOfItem: () => {},
   subtractAmountOfItem: () => {},
+
+  clearCart: () => {},
 });
 
 export function CartContextProvider({ children }) {
@@ -85,6 +87,12 @@ export function CartContextProvider({ children }) {
     subtractCartPrice(item);
   }
 
+  function clearCart() {
+    setCart([]);
+    setCartLength(0);
+    setCartPrice(0.00);
+  }
+
   const cartCtxValue = {
     cart,
     cartLength,
@@ -100,6 +108,8 @@ export function CartContextProvider({ children }) {
 
     addAmountOfItem,
     subtractAmountOfItem,
+
+    clearCart,
   }
 
   return <CartContext.Provider value={cartCtxValue}>{children}</CartContext.Provider>

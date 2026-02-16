@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { CartContext } from "../store/CartContext";
 
-export default function Cart({ closeCart }) {
+export default function Cart({ closeCart, toSubmitOrder }) {
   const { cart, cartPrice, addAmountOfItem, subtractAmountOfItem } = useContext(CartContext);
 
   const checkoutBtnClassName = `button${cart.length < 1 ? ' disabled' : ''}`;
@@ -38,7 +38,8 @@ export default function Cart({ closeCart }) {
         <button onClick={closeCart} className="text-button">
           Close
         </button>
-        <button className={checkoutBtnClassName} disabled={cart.length < 1}>Go to Checkout</button>
+        
+        <button className={checkoutBtnClassName} disabled={cart.length < 1} onClick={toSubmitOrder}>Go to Checkout</button>
       </div>
     </div>
   );
